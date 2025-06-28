@@ -1,11 +1,134 @@
-🧠 Cognitive Dissonance Evaluator
-==================================================
-✅ Loaded 6649 examples
-Number of examples (default 9): 9
-🧪 Sampled 9 examples (3 per class)
-Prompt type - (z)ero-shot or (f)ew-shot? (default z): f
+Zero-Shot:
 
-📋 COPY THIS FEW-SHOT PROMPT:
+Cognitive Dissonance Evaluator
+==================================================
+Loaded 6649 examples
+Number of examples (default 9): 18
+Sampled 18 examples (6 per class)
+Prompt type - (z)ero-shot or (f)ew-shot? (default z): z
+
+COPY THIS ZERO-SHOT PROMPT:
+==================================================
+You are given belief pairs extracted from social media posts.
+
+Follow this 3-step flowchart to annotate the relationship between beliefs:
+
+- Step 1: Is the parsing and segmentation adequate to judge the relationship? If NO → Label is NEITHER
+- Step 2: Are the two beliefs logically contradictory (directly or indirectly)? If YES → Label is DISSONANCE  
+- Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)? If YES → Label is CONSONANCE
+- If none of the above apply → Label is NEITHER
+
+Return a list of dicts like:
+[
+  {"steps": ["Yes", "Yes", "-"], "label": "D"},
+  {"steps": ["Yes", "No", "Yes"], "label": "C"},
+  ...
+]
+Now classify the following:
+1. Belief 1: "and stay up"
+   Belief 2: "even tho I have to wake up at eight , ok ?"
+
+2. Belief 1: "and then the jyp nation leaves jype"
+   Belief 2: "and choreographynmy wattpad brain : ?"
+
+3. Belief 1: "i keep trying"
+   Belief 2: "😂"
+
+4. Belief 1: "I had to drink a bottle of water"
+   Belief 2: "after I finished ,"
+
+5. Belief 1: "that somehow the former and latter would cancel out ,"
+   Belief 2: "but they do n’t ."
+
+6. Belief 1: "to make love ."
+   Belief 2: "I’m gon na make the time"
+
+7. Belief 1: "until you love for your brother"
+   Belief 2: "what you love for yourself .’"
+
+8. Belief 1: "That Dream I Had Was So Real ."
+   Belief 2: "out of Dead Sleep"
+
+9. Belief 1: "6’3"
+   Belief 2: "80"
+
+10. Belief 1: "I’m struggling right now . . ."
+   Belief 2: "how I got so lucky ."
+
+11. Belief 1: "Just blew my interview out the water !"
+   Belief 2: "I’m claiming it now .’"
+
+12. Belief 1: "that say’   that’s high school making me chase you around for months"
+   Belief 2: "have an affair act like an adult for once’"
+
+13. Belief 1: "Finally a"
+   Belief 2: "3"
+
+14. Belief 1: "having a visual line"
+   Belief 2: "they are all the visual line"
+
+15. Belief 1: "Damn I just found out"
+   Belief 2: "😩🤦🏽‍♂️"
+
+16. Belief 1: "My dvd player just lowkey read me lol ..."
+   Belief 2: "’   This dvd is dirty ."
+
+17. Belief 1: "I’m getting sick with you"
+   Belief 2: "☺"
+
+18. Belief 1: "//almost forgot"
+   Belief 2: "she also forgets"
+
+
+==================================================
+
+Paste LLM response:
+[{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"}]
+
+ACCURACY: 66.67%
+
+Classification Report:
+              precision    recall  f1-score   support
+
+  Consonance       0.62      0.83      0.71         6
+  Dissonance       1.00      0.50      0.67         6
+     Neither       0.57      0.67      0.62         6
+
+    accuracy                           0.67        18
+   macro avg       0.73      0.67      0.67        18
+weighted avg       0.73      0.67      0.67        18
+
+
+Individual Results:
+1. Gold: Dissonance | Pred: Dissonance ✅
+2. Gold: Neither | Pred: Neither ✅
+3. Gold: Neither | Pred: Neither ✅
+4. Gold: Consonance | Pred: Consonance ✅
+5. Gold: Dissonance | Pred: Dissonance ✅
+6. Gold: Consonance | Pred: Consonance ✅
+7. Gold: Neither | Pred: Consonance ❌
+8. Gold: Consonance | Pred: Consonance ✅
+9. Gold: Neither | Pred: Neither ✅
+10. Gold: Dissonance | Pred: Dissonance ✅
+11. Gold: Consonance | Pred: Consonance ✅
+12. Gold: Dissonance | Pred: Neither ❌
+13. Gold: Neither | Pred: Neither ✅
+14. Gold: Dissonance | Pred: Consonance ❌
+15. Gold: Consonance | Pred: Neither ❌
+16. Gold: Neither | Pred: Consonance ❌
+17. Gold: Dissonance | Pred: Neither ❌
+18. Gold: Consonance | Pred: Consonance ✅
+
+Few-shot:
+
+Cognitive Dissonance Evaluator
+==================================================
+Loaded 6649 examples
+Number of examples (default 9): 18
+Sampled 18 examples (6 per class)
+Prompt type - (z)ero-shot or (f)ew-shot? (default z): f 
+
+COPY THIS FEW-SHOT PROMPT:
 ==================================================
 You are given belief pairs extracted from social media posts.
 
@@ -24,162 +147,115 @@ Return a list of dicts like:
 ]
 
 EXAMPLES:
-1. Belief 1: "Hahahahahahha when your drama starting self adds someone on Facebook" | Belief 2: "’   what the hell’   and decline you"
+1. Belief 1: "Thanks for all the replies for the FTW tweet ." | Belief 2: "But’   FTW’   is gay as hell lol"
    → {"steps": ["Yes", "Yes", "-"], "label": "D"} (DISSONANCE)
 
-2. Belief 1: "like I have so much to do ," | Belief 2: "and sitting in the same place"
+2. Belief 1: "getting up for work" | Belief 2: "lately I just wanna sleep"
    → {"steps": ["Yes", "Yes", "-"], "label": "D"} (DISSONANCE)
 
-3. Belief 1: "fighting for those rights ." | Belief 2: "I’m kinda sick of the both bad bullshit , honestly ."
+3. Belief 1: "You have the name of one of the Twitch streamers" | Belief 2: "We do n’t interact enough"
    → {"steps": ["Yes", "No", "Yes"], "label": "C"} (CONSONANCE)
 
-4. Belief 1: "Trump himself has railed against Michigan’s coronavirus restrictions ," | Belief 2: "liberate Michigan ."
+4. Belief 1: "that are deleted a few moments later ," | Belief 2: "it’s b / c I don’t know a better way"
    → {"steps": ["Yes", "No", "Yes"], "label": "C"} (CONSONANCE)
 
-5. Belief 1: "3" | Belief 2: "and staying up until"
+5. Belief 1: "Watching [USER]" | Belief 2: "butchered his name was nearly as funny as’   See something ;"
    → {"steps": ["No", "-", "-"], "label": "N"} (NEITHER)
 
-6. Belief 1: "writers attempt to make them perfect magic beings ," | Belief 2: "to struggle with ."
+6. Belief 1: "I still can’t believe" | Belief 2: "1"
    → {"steps": ["No", "-", "-"], "label": "N"} (NEITHER)
 
 Now classify the following:
-1. Belief 1: "’   Open up her mouth"
-   Belief 2: "that looks like tools ..."
+1. Belief 1: "’   Bite me’   I did n’t mean it literally ."
+   Belief 2: "Ow !"
 
-2. Belief 1: "He’s gon na realise"
-   Belief 2: "they do n’t work"
+2. Belief 1: "would not meekly accept taxation"
+   Belief 2: "But we accept"
 
-3. Belief 1: "and I ca n’t figure out the puzzle at the end !"
-   Belief 2: "I’z going nuts tryin"
+3. Belief 1: "why do you look so sad ? ,"
+   Belief 2: "or are you okay?nn ..."
 
-4. Belief 1: "living it up on a tuesday night in"
-   Belief 2: "because i can’t handle another bad year"
+4. Belief 1: "to protect them"
+   Belief 2: "is fucked up"
 
-5. Belief 1: "but I’m in the bag this whole year in college"
-   Belief 2: "no cap nothing more nun less"
+5. Belief 1: "450"
+   Belief 2: "randomly selected people do any worse than the current group ?"
 
-6. Belief 1: "and is almost always right about everything"
-   Belief 2: "when I can prove her wrong about something"
+6. Belief 1: "she calls at RANDOM"
+   Belief 2: "how do u expect me to get complex all of a sudden"
 
-7. Belief 1: "#ThingsIdRatherDoThanGetHitByMikeTyson"
-   Belief 2: "-"
+7. Belief 1: "’   Wheb ur official messes up"
+   Belief 2: "I next weekend will be supplying a homie"
 
-8. Belief 1: "having a visual line"
-   Belief 2: "they are all the visual line"
+8. Belief 1: "it’s been a few months"
+   Belief 2: "you meant to ?"
 
-9. Belief 1: "My depression movies are howls moving castle"
-   Belief 2: "to watch Ghibli"
+9. Belief 1: "I get mad"
+   Belief 2: "til it sounds cute ."
+
+10. Belief 1: "Cast Cheney ?"
+   Belief 2: "🤮🤮🤮"
+
+11. Belief 1: "Using Siri talk - to - text is awesome"
+   Belief 2: "never going out in public again ."
+
+12. Belief 1: "spent four of those years vegan , too ."
+   Belief 2: "so vegetarianism really is nothing to me at this point ."
+
+13. Belief 1: "When two people believe opposite things ,"
+   Belief 2: "It pays to find out"
+
+14. Belief 1: "or build a following / audience"
+   Belief 2: "nor automatically generate content"
+
+15. Belief 1: "No I just wanna YOLO so hard"
+   Belief 2: "even tho I have to wake up at eight , ok ?"
+
+16. Belief 1: "’   Baby who we are just did n’t work ."
+   Belief 2: "But maybe we can live with something out of all this hurt .’"
+
+17. Belief 1: "Come and enjoy my Art Exhibit"
+   Belief 2: "and hear my new cd at Kroma Gallery"
+
+18. Belief 1: "because anthony called to argue at"
+   Belief 2: "7"
 
 
 ==================================================
 
-✂️ Paste LLM response:
-[{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"}]
+Paste LLM response:
+[{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"}]
 
-📊 ACCURACY: 66.67%
+ACCURACY: 72.22%
 
 Classification Report:
               precision    recall  f1-score   support
 
-  Consonance       0.50      0.67      0.57         3
-  Dissonance       1.00      0.67      0.80         3
-     Neither       0.67      0.67      0.67         3
+  Consonance       0.67      0.67      0.67         6
+  Dissonance       1.00      0.83      0.91         6
+     Neither       0.57      0.67      0.62         6
 
-    accuracy                           0.67         9
-   macro avg       0.72      0.67      0.68         9
-weighted avg       0.72      0.67      0.68         9
+    accuracy                           0.72        18
+   macro avg       0.75      0.72      0.73        18
+weighted avg       0.75      0.72      0.73        18
 
 
-🔍 Individual Results:
-1. Gold: Neither | Pred: Neither ✅
-2. Gold: Consonance | Pred: Consonance ✅
+Individual Results:
+1. Gold: Neither | Pred: Consonance ❌
+2. Gold: Dissonance | Pred: Dissonance ✅
 3. Gold: Consonance | Pred: Consonance ✅
 4. Gold: Dissonance | Pred: Dissonance ✅
-5. Gold: Consonance | Pred: Neither ❌
-6. Gold: Dissonance | Pred: Dissonance ✅
-7. Gold: Neither | Pred: Neither ✅
-8. Gold: Dissonance | Pred: Consonance ❌
-9. Gold: Neither | Pred: Consonance ❌
-PS C:\root\SBU\Research\CognitiveDissonance> python manual_prompt_tester.py
-🧠 Cognitive Dissonance Evaluator
-==================================================
-✅ Loaded 6649 examples
-Number of examples (default 9): 9
-🧪 Sampled 9 examples (3 per class)
-Prompt type - (z)ero-shot or (f)ew-shot? (default z): z
-
-📋 COPY THIS ZERO-SHOT PROMPT:
-==================================================
-You are given belief pairs extracted from social media posts.
-
-Follow this 3-step flowchart to annotate the relationship between beliefs:
-
-- Step 1: Is the parsing and segmentation adequate to judge the relationship? If NO → Label is NEITHER
-- Step 2: Are the two beliefs logically contradictory (directly or indirectly)? If YES → Label is DISSONANCE
-- Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)? If YES → Label is CONSONANCE
-- If none of the above apply → Label is NEITHER
-
-Return a list of dicts like:
-[
-  {"steps": ["Yes", "Yes", "-"], "label": "D"},
-  {"steps": ["Yes", "No", "Yes"], "label": "C"},
-  ...
-]
-Now classify the following:
-1. Belief 1: "Despite Jorge Cubby Bencomo and I’s efforts ,"
-   Belief 2: "We tried to pre - order , sold out by"
-
-2. Belief 1: "I almost want to say"
-   Belief 2: "Its my turn now ..."
-
-3. Belief 1: "thank you !"
-   Belief 2: "Just completely hungover"
-
-4. Belief 1: "should just go back to playing poker ."
-   Belief 2: "decisions are made ?"
-
-5. Belief 1: "I think"
-   Belief 2: "I’ll be on Rip the Runway one day"
-
-6. Belief 1: "Was he your brother"
-   Belief 2: "Ughhh"
-
-7. Belief 1: "and i should be a better influence"
-   Belief 2: "but no i said"
-
-8. Belief 1: "She is one of the worst characters"
-   Belief 2: "because of her character.nnI wo n’t quit though ..."
-
-9. Belief 1: "GIRL we have a plumbing issue"
-   Belief 2: "😂"
-
-
-==================================================
-
-✂️ Paste LLM response:
-[{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"}]
-
-📊 ACCURACY: 55.56%
-
-Classification Report:
-              precision    recall  f1-score   support
-
-  Consonance       0.67      0.67      0.67         3
-  Dissonance       1.00      0.33      0.50         3
-     Neither       0.40      0.67      0.50         3
-
-    accuracy                           0.56         9
-   macro avg       0.69      0.56      0.56         9
-weighted avg       0.69      0.56      0.56         9
-
-
-🔍 Individual Results:
-1. Gold: Neither | Pred: Consonance ❌
-2. Gold: Neither | Pred: Neither ✅
-3. Gold: Neither | Pred: Neither ✅
-4. Gold: Dissonance | Pred: Neither ❌
-5. Gold: Consonance | Pred: Consonance ✅
+5. Gold: Neither | Pred: Neither ✅
 6. Gold: Consonance | Pred: Neither ❌
-7. Gold: Dissonance | Pred: Dissonance ✅
-8. Gold: Consonance | Pred: Consonance ✅
+7. Gold: Neither | Pred: Neither ✅
+8. Gold: Neither | Pred: Neither ✅
 9. Gold: Dissonance | Pred: Neither ❌
+10. Gold: Consonance | Pred: Consonance ✅
+11. Gold: Dissonance | Pred: Dissonance ✅
+12. Gold: Consonance | Pred: Consonance ✅
+13. Gold: Neither | Pred: Consonance ❌
+14. Gold: Consonance | Pred: Neither ❌
+15. Gold: Dissonance | Pred: Dissonance ✅
+16. Gold: Dissonance | Pred: Dissonance ✅
+17. Gold: Consonance | Pred: Consonance ✅
+18. Gold: Neither | Pred: Neither ✅

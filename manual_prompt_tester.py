@@ -7,7 +7,7 @@ def load_data():
     """Load the dataset."""
     with open('data/train_big.json', 'r') as f:
         data = json.load(f)
-    print(f"✅ Loaded {len(data)} examples")
+    print(f"Loaded {len(data)} examples")
     return data
 
 def sample_data(data, n=9):
@@ -23,7 +23,7 @@ def sample_data(data, n=9):
         sample.extend(random.sample(examples, each))
     
     random.shuffle(sample)
-    print(f"🧪 Sampled {len(sample)} examples ({each} per class)")
+    print(f"Sampled {len(sample)} examples ({each} per class)")
     return sample
 
 def get_few_shot_examples(data):
@@ -86,11 +86,11 @@ def parse_response(response, expected_len):
     try:
         parsed = json.loads(response.strip())
         if len(parsed) != expected_len:
-            print(f"❌ Expected {expected_len} items, got {len(parsed)}")
+            print(f"Expected {expected_len} items, got {len(parsed)}")
             return None
         return [item['label'].upper()[0] for item in parsed]
     except Exception as e:
-        print(f"❌ Parse error: {e}")
+        print(f"Parse error: {e}")
         return None
 
 def evaluate(predicted, gold, sample):
@@ -102,7 +102,7 @@ def evaluate(predicted, gold, sample):
     print(classification_report(gold, predicted, target_names=['Consonance', 'Dissonance', 'Neither'], 
                               labels=['C', 'D', 'N'], zero_division=0))
     
-    print("\n🔍 Individual Results:")
+    print("\nIndividual Results:")
     labels = {'C': 'Consonance', 'D': 'Dissonance', 'N': 'Neither'}
     for i, (g, p) in enumerate(zip(gold, predicted)):
         check = "✅" if g == p else "❌"
@@ -124,7 +124,7 @@ def main():
     # Build and show prompt
     prompt = build_prompt(sample, few_shot, data if few_shot else None)
     prompt_type = "FEW-SHOT" if few_shot else "ZERO-SHOT"
-    print(f"\n📋 COPY THIS {prompt_type} PROMPT:")
+    print(f"\nCOPY THIS {prompt_type} PROMPT:")
     print("=" * 50)
     print(prompt)
     print("=" * 50)
