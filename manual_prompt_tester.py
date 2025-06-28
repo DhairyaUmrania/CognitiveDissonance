@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Simple cognitive dissonance evaluator with random sampling.
-"""
-
 import json
 import random
 from sklearn.metrics import accuracy_score, classification_report
@@ -101,7 +97,7 @@ def evaluate(predicted, gold, sample):
     """Evaluate predictions."""
     accuracy = accuracy_score(gold, predicted)
     
-    print(f"\n📊 ACCURACY: {accuracy:.2%}")
+    print(f"\nACCURACY: {accuracy:.2%}")
     print("\nClassification Report:")
     print(classification_report(gold, predicted, target_names=['Consonance', 'Dissonance', 'Neither'], 
                               labels=['C', 'D', 'N'], zero_division=0))
@@ -113,7 +109,7 @@ def evaluate(predicted, gold, sample):
         print(f"{i+1}. Gold: {labels[g]} | Pred: {labels[p]} {check}")
 
 def main():
-    print("🧠 Cognitive Dissonance Evaluator")
+    print("Cognitive Dissonance Evaluator")
     print("=" * 50)
     
     # Load and sample data
@@ -134,7 +130,7 @@ def main():
     print("=" * 50)
     
     # Get response
-    print("\n✂️ Paste LLM response:")
+    print("\nPaste LLM response:")
     response = input()
     
     # Parse and evaluate
