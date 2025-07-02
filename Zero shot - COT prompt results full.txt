@@ -1,0 +1,759 @@
+COGNITIVE DISSONANCE PROMPT TESTER
+==================================================
+Loading data...
+Loaded 6649 examples from data/train_big.json
+How many examples to test? (5-20 recommended): 18
+Created test sample with 18 examples
+
+Available prompts:
+  1. main
+  2. cot
+  3. simple
+Choose prompt (1-3): 2
+
+Testing 'cot' on 18 examples
+Goal: Achieve 80% accuracy
+
+Testing: cot
+==================================================
+
+--- Example 1/18 ---
+True answer: D
+Message:  < i honeslty never thought > i would make it past 18 , < but here i am , > livi...
+Unit 1:  i honeslty never thought
+Unit 2:  but here i am ,
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** " < i honeslty never thought > i would make it past 18 , < but here i am , > living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i honeslty never thought "
+**Discourse Unit 2:** " but here i am , "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n): 
+
+--- Example 2/18 ---
+True answer: D
+Message: i honeslty never thought < i would make it past > 18 , < but here i am , > livin...
+Unit 1:  i would make it past 
+Unit 2:  but here i am , 
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought < i would make it past > 18 , < but here i am , > living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i would make it past "
+**Discourse Unit 2:** " but here i am , "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["YES", "YES", "N/A"], "label": "DISSONANCE"}
+Result: D (CORRECT)
+Steps: ['YES', 'YES', 'N/A']
+Continue? (Enter/n):
+
+--- Example 3/18 ---
+True answer: D
+Message: i honeslty never thought i would make it past 18 , < but here i am , > living it...
+Unit 1:  but here i am ,
+Unit 2:  because i can’t handle another bad year
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , < but here i am , > living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me < because i can’t handle another bad year > 🤞🏼"
+**Discourse Unit 1:** " but here i am , "
+**Discourse Unit 2:** " because i can’t handle another bad year "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["YES", "NO", "NO"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['YES', 'NO', 'NO']
+Continue? (Enter/n):
+
+--- Example 4/18 ---
+True answer: D
+Message: i honeslty never thought i would make it past 18 , but here i am , < living it u...
+Unit 1:  living it up on a tuesday night in
+Unit 2:  i really need this year to be good to me
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , < living it up on a tuesday night in > 2020👌🏼 < i really need this year to be good to me > because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " living it up on a tuesday night in "
+**Discourse Unit 2:** " i really need this year to be good to me "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 5/18 ---
+True answer: D
+Message: i honeslty never thought i would make it past 18 , but here i am , < living it u...
+Unit 1:  living it up on a tuesday night in
+Unit 2:  because i can’t handle another bad year
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , < living it up on a tuesday night in > 2020👌🏼 i really need this year to be good to me < because i can’t handle another bad year > 🤞🏼"
+**Discourse Unit 1:** " living it up on a tuesday night in "
+**Discourse Unit 2:** " because i can’t handle another bad year "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 6/18 ---
+True answer: D
+Message: i honeslty never thought i would make it past 18 , but here i am , < living it u...
+Unit 1:  living it up on a tuesday night in
+Unit 2:  🤞🏼
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , < living it up on a tuesday night in > 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year < 🤞🏼 > "
+**Discourse Unit 1:** " living it up on a tuesday night in "
+**Discourse Unit 2:** " 🤞🏼 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 7/18 ---
+True answer: C
+Message: i honeslty never thought < i would make it past > 18 , but here i am , < living ...
+Unit 1:  i would make it past
+Unit 2:  living it up on a tuesday night in
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought < i would make it past > 18 , but here i am , < living it up on a tuesday night in > 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i would make it past "
+**Discourse Unit 2:** " living it up on a tuesday night in "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 8/18 ---
+True answer: C
+Message: i honeslty never thought i would make it past 18 , < but here i am , > < living ...
+Unit 1:  but here i am ,
+Unit 2:  living it up on a tuesday night in
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , < but here i am , > < living it up on a tuesday night in > 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " but here i am , "
+**Discourse Unit 2:** " living it up on a tuesday night in "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 9/18 ---
+True answer: C
+Message: i honeslty never thought i would make it past 18 , < but here i am , > living it...
+Unit 1:  but here i am ,
+Unit 2:  2020👌🏼
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , < but here i am , > living it up on a tuesday night in < 2020👌🏼 > i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " but here i am , "
+**Discourse Unit 2:** " 2020👌🏼 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 10/18 ---
+True answer: C
+Message: i honeslty never thought i would make it past 18 , but here i am , living it up ...
+Unit 1:  i really need this year to be good to me
+Unit 2:  because i can’t handle another bad year
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , living it up on a tuesday night in 2020👌🏼 < i really need this year to be good to me > < because i can’t handle another bad year > 🤞🏼"
+**Discourse Unit 1:** " i really need this year to be good to me "
+**Discourse Unit 2:** " because i can’t handle another bad year "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["YES", "NO", "YES"], "label": "CONSONANCE"}
+Result: C (CORRECT)
+Steps: ['YES', 'NO', 'YES']
+Continue? (Enter/n):
+
+--- Example 11/18 ---
+True answer: C
+Message: i honeslty never thought i would make it past 18 , but here i am , living it up ...
+Unit 1:  i really need this year to be good to me
+Unit 2:  🤞🏼
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , living it up on a tuesday night in 2020👌🏼 < i really need this year to be good to me > because i can’t handle another bad year < 🤞🏼 > "
+**Discourse Unit 1:** " i really need this year to be good to me "
+**Discourse Unit 2:** " 🤞🏼 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 12/18 ---
+True answer: C
+Message: i honeslty never thought i would make it past 18 , but here i am , living it up ...
+Unit 1:  because i can’t handle another bad year
+Unit 2:  🤞🏼
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past 18 , but here i am , living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me < because i can’t handle another bad year > < 🤞🏼 > "
+**Discourse Unit 1:** " because i can’t handle another bad year "
+**Discourse Unit 2:** " 🤞🏼 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (INCORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 13/18 ---
+True answer: N
+Message:  < i honeslty never thought > < i would make it past > 18 , but here i am , livi...
+Unit 1:  i honeslty never thought
+Unit 2:  i would make it past
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** " < i honeslty never thought > < i would make it past > 18 , but here i am , living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i honeslty never thought "
+**Discourse Unit 2:** " i would make it past "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 14/18 ---
+True answer: N
+Message:  < i honeslty never thought > i would make it past < 18 > , but here i am , livi...
+Unit 1:  i honeslty never thought
+Unit 2:  18
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** " < i honeslty never thought > i would make it past < 18 > , but here i am , living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i honeslty never thought "
+**Discourse Unit 2:** " 18 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 15/18 ---
+True answer: N
+Message: i honeslty never thought < i would make it past > < 18 > , but here i am , livin...
+Unit 1:  i would make it past
+Unit 2:  18
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought < i would make it past > < 18 > , but here i am , living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " i would make it past "
+**Discourse Unit 2:** " 18 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 16/18 ---
+True answer: N
+Message: i honeslty never thought i would make it past < 18 > , < but here i am , > livin...
+Unit 1:  18
+Unit 2:  but here i am ,
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past < 18 > , < but here i am , > living it up on a tuesday night in 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " 18 "
+**Discourse Unit 2:** " but here i am , "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 17/18 ---
+True answer: N
+Message: i honeslty never thought i would make it past < 18 > , but here i am , < living ...
+Unit 1:  18
+Unit 2:  living it up on a tuesday night in
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past < 18 > , but here i am , < living it up on a tuesday night in > 2020👌🏼 i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " 18 "
+**Discourse Unit 2:** " living it up on a tuesday night in "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+Continue? (Enter/n):
+
+--- Example 18/18 ---
+True answer: N
+Message: i honeslty never thought i would make it past < 18 > , but here i am , living it...
+Unit 1:  18
+Unit 2:  2020👌🏼
+
+COPY THIS TO YOUR LLM:
+------------------------------
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "i honeslty never thought i would make it past < 18 > , but here i am , living it up on a tuesday night in < 2020👌🏼 > i really need this year to be good to me because i can’t handle another bad year 🤞🏼"
+**Discourse Unit 1:** " 18 "
+**Discourse Unit 2:** " 2020👌🏼 "
+
+Think through each step carefully, then output:
+{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}
+------------------------------
+
+Paste LLM response: {"steps": ["NO", "N/A", "N/A"], "label": "NEITHER"}
+Result: N (CORRECT)
+Steps: ['NO', 'N/A', 'N/A']
+
+RESULTS: cot
+==================================================
+Accuracy: 44.4%
+
+Individual Results:
+  1: Dissonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  2: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  3: Dissonance -> Neither (INCORRECT)
+      Steps: ['YES', 'NO', 'NO']
+  4: Dissonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  5: Dissonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  6: Dissonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  7: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  8: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  9: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  10: Consonance -> Consonance (CORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  11: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  12: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  13: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  14: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  15: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  16: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  17: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  18: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+
+ERROR ANALYSIS:
+Found 10 errors. Common patterns:
+  D -> N: 5 cases
+  C -> N: 5 cases
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+  Consonance       1.00      0.17      0.29         6
+  Dissonance       1.00      0.17      0.29         6
+     Neither       0.38      1.00      0.55         6
+
+    accuracy                           0.44        18
+   macro avg       0.79      0.44      0.37        18
+weighted avg       0.79      0.44      0.37        18

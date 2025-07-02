@@ -1,261 +1,366 @@
-Zero-Shot:
+#!/usr/bin/env python3
+"""
+Simple manual tester for cognitive dissonance prompts
+Clean, readable version with only essential features
+"""
 
-Cognitive Dissonance Evaluator
-==================================================
-Loaded 6649 examples
-Number of examples (default 9): 18
-Sampled 18 examples (6 per class)
-Prompt type - (z)ero-shot or (f)ew-shot? (default z): z
-
-COPY THIS ZERO-SHOT PROMPT:
-==================================================
-You are given belief pairs extracted from social media posts.
-
-Follow this 3-step flowchart to annotate the relationship between beliefs:
-
-- Step 1: Is the parsing and segmentation adequate to judge the relationship? If NO → Label is NEITHER
-- Step 2: Are the two beliefs logically contradictory (directly or indirectly)? If YES → Label is DISSONANCE  
-- Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)? If YES → Label is CONSONANCE
-- If none of the above apply → Label is NEITHER
-
-Return a list of dicts like:
-[
-  {"steps": ["Yes", "Yes", "-"], "label": "D"},
-  {"steps": ["Yes", "No", "Yes"], "label": "C"},
-  ...
-]
-Now classify the following:
-1. Belief 1: "and stay up"
-   Belief 2: "even tho I have to wake up at eight , ok ?"
-
-2. Belief 1: "and then the jyp nation leaves jype"
-   Belief 2: "and choreographynmy wattpad brain : ?"
-
-3. Belief 1: "i keep trying"
-   Belief 2: "😂"
-
-4. Belief 1: "I had to drink a bottle of water"
-   Belief 2: "after I finished ,"
-
-5. Belief 1: "that somehow the former and latter would cancel out ,"
-   Belief 2: "but they do n’t ."
-
-6. Belief 1: "to make love ."
-   Belief 2: "I’m gon na make the time"
-
-7. Belief 1: "until you love for your brother"
-   Belief 2: "what you love for yourself .’"
-
-8. Belief 1: "That Dream I Had Was So Real ."
-   Belief 2: "out of Dead Sleep"
-
-9. Belief 1: "6’3"
-   Belief 2: "80"
-
-10. Belief 1: "I’m struggling right now . . ."
-   Belief 2: "how I got so lucky ."
-
-11. Belief 1: "Just blew my interview out the water !"
-   Belief 2: "I’m claiming it now .’"
-
-12. Belief 1: "that say’   that’s high school making me chase you around for months"
-   Belief 2: "have an affair act like an adult for once’"
-
-13. Belief 1: "Finally a"
-   Belief 2: "3"
-
-14. Belief 1: "having a visual line"
-   Belief 2: "they are all the visual line"
-
-15. Belief 1: "Damn I just found out"
-   Belief 2: "😩🤦🏽‍♂️"
-
-16. Belief 1: "My dvd player just lowkey read me lol ..."
-   Belief 2: "’   This dvd is dirty ."
-
-17. Belief 1: "I’m getting sick with you"
-   Belief 2: "☺"
-
-18. Belief 1: "//almost forgot"
-   Belief 2: "she also forgets"
-
-
-==================================================
-
-Paste LLM response:
-[{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"}]
-
-ACCURACY: 66.67%
-
-Classification Report:
-              precision    recall  f1-score   support
-
-  Consonance       0.62      0.83      0.71         6
-  Dissonance       1.00      0.50      0.67         6
-     Neither       0.57      0.67      0.62         6
-
-    accuracy                           0.67        18
-   macro avg       0.73      0.67      0.67        18
-weighted avg       0.73      0.67      0.67        18
-
-
-Individual Results:
-1. Gold: Dissonance | Pred: Dissonance ✅
-2. Gold: Neither | Pred: Neither ✅
-3. Gold: Neither | Pred: Neither ✅
-4. Gold: Consonance | Pred: Consonance ✅
-5. Gold: Dissonance | Pred: Dissonance ✅
-6. Gold: Consonance | Pred: Consonance ✅
-7. Gold: Neither | Pred: Consonance ❌
-8. Gold: Consonance | Pred: Consonance ✅
-9. Gold: Neither | Pred: Neither ✅
-10. Gold: Dissonance | Pred: Dissonance ✅
-11. Gold: Consonance | Pred: Consonance ✅
-12. Gold: Dissonance | Pred: Neither ❌
-13. Gold: Neither | Pred: Neither ✅
-14. Gold: Dissonance | Pred: Consonance ❌
-15. Gold: Consonance | Pred: Neither ❌
-16. Gold: Neither | Pred: Consonance ❌
-17. Gold: Dissonance | Pred: Neither ❌
-18. Gold: Consonance | Pred: Consonance ✅
-
-Few-shot:
-
-Cognitive Dissonance Evaluator
-==================================================
-Loaded 6649 examples
-Number of examples (default 9): 18
-Sampled 18 examples (6 per class)
-Prompt type - (z)ero-shot or (f)ew-shot? (default z): f 
-
-COPY THIS FEW-SHOT PROMPT:
-==================================================
-You are given belief pairs extracted from social media posts.
-
-Follow this 3-step flowchart to annotate the relationship between beliefs:
-
-- Step 1: Is the parsing and segmentation adequate to judge the relationship? If NO → Label is NEITHER
-- Step 2: Are the two beliefs logically contradictory (directly or indirectly)? If YES → Label is DISSONANCE
-- Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)? If YES → Label is CONSONANCE
-- If none of the above apply → Label is NEITHER
-
-Return a list of dicts like:
-[
-  {"steps": ["Yes", "Yes", "-"], "label": "D"},
-  {"steps": ["Yes", "No", "Yes"], "label": "C"},
-  ...
-]
-
-EXAMPLES:
-1. Belief 1: "Thanks for all the replies for the FTW tweet ." | Belief 2: "But’   FTW’   is gay as hell lol"
-   → {"steps": ["Yes", "Yes", "-"], "label": "D"} (DISSONANCE)
-
-2. Belief 1: "getting up for work" | Belief 2: "lately I just wanna sleep"
-   → {"steps": ["Yes", "Yes", "-"], "label": "D"} (DISSONANCE)
-
-3. Belief 1: "You have the name of one of the Twitch streamers" | Belief 2: "We do n’t interact enough"
-   → {"steps": ["Yes", "No", "Yes"], "label": "C"} (CONSONANCE)
-
-4. Belief 1: "that are deleted a few moments later ," | Belief 2: "it’s b / c I don’t know a better way"
-   → {"steps": ["Yes", "No", "Yes"], "label": "C"} (CONSONANCE)
-
-5. Belief 1: "Watching [USER]" | Belief 2: "butchered his name was nearly as funny as’   See something ;"
-   → {"steps": ["No", "-", "-"], "label": "N"} (NEITHER)
-
-6. Belief 1: "I still can’t believe" | Belief 2: "1"
-   → {"steps": ["No", "-", "-"], "label": "N"} (NEITHER)
-
-Now classify the following:
-1. Belief 1: "’   Bite me’   I did n’t mean it literally ."
-   Belief 2: "Ow !"
-
-2. Belief 1: "would not meekly accept taxation"
-   Belief 2: "But we accept"
-
-3. Belief 1: "why do you look so sad ? ,"
-   Belief 2: "or are you okay?nn ..."
-
-4. Belief 1: "to protect them"
-   Belief 2: "is fucked up"
-
-5. Belief 1: "450"
-   Belief 2: "randomly selected people do any worse than the current group ?"
-
-6. Belief 1: "she calls at RANDOM"
-   Belief 2: "how do u expect me to get complex all of a sudden"
-
-7. Belief 1: "’   Wheb ur official messes up"
-   Belief 2: "I next weekend will be supplying a homie"
-
-8. Belief 1: "it’s been a few months"
-   Belief 2: "you meant to ?"
-
-9. Belief 1: "I get mad"
-   Belief 2: "til it sounds cute ."
-
-10. Belief 1: "Cast Cheney ?"
-   Belief 2: "🤮🤮🤮"
-
-11. Belief 1: "Using Siri talk - to - text is awesome"
-   Belief 2: "never going out in public again ."
-
-12. Belief 1: "spent four of those years vegan , too ."
-   Belief 2: "so vegetarianism really is nothing to me at this point ."
-
-13. Belief 1: "When two people believe opposite things ,"
-   Belief 2: "It pays to find out"
-
-14. Belief 1: "or build a following / audience"
-   Belief 2: "nor automatically generate content"
-
-15. Belief 1: "No I just wanna YOLO so hard"
-   Belief 2: "even tho I have to wake up at eight , ok ?"
-
-16. Belief 1: "’   Baby who we are just did n’t work ."
-   Belief 2: "But maybe we can live with something out of all this hurt .’"
-
-17. Belief 1: "Come and enjoy my Art Exhibit"
-   Belief 2: "and hear my new cd at Kroma Gallery"
-
-18. Belief 1: "because anthony called to argue at"
-   Belief 2: "7"
-
-
-==================================================
-
-Paste LLM response:
-[{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "Yes", "-"], "label": "D"},{"steps": ["Yes", "No", "Yes"], "label": "C"},{"steps": ["No", "-", "-"], "label": "N"}]
-
-ACCURACY: 72.22%
-
-Classification Report:
-              precision    recall  f1-score   support
-
-  Consonance       0.67      0.67      0.67         6
-  Dissonance       1.00      0.83      0.91         6
-     Neither       0.57      0.67      0.62         6
-
-    accuracy                           0.72        18
-   macro avg       0.75      0.72      0.73        18
-weighted avg       0.75      0.72      0.73        18
-
-
-Individual Results:
-1. Gold: Neither | Pred: Consonance ❌
-2. Gold: Dissonance | Pred: Dissonance ✅
-3. Gold: Consonance | Pred: Consonance ✅
-4. Gold: Dissonance | Pred: Dissonance ✅
-5. Gold: Neither | Pred: Neither ✅
-6. Gold: Consonance | Pred: Neither ❌
-7. Gold: Neither | Pred: Neither ✅
-8. Gold: Neither | Pred: Neither ✅
-9. Gold: Dissonance | Pred: Neither ❌
-10. Gold: Consonance | Pred: Consonance ✅
-11. Gold: Dissonance | Pred: Dissonance ✅
-12. Gold: Consonance | Pred: Consonance ✅
-13. Gold: Neither | Pred: Consonance ❌
-14. Gold: Consonance | Pred: Neither ❌
-15. Gold: Dissonance | Pred: Dissonance ✅
-16. Gold: Dissonance | Pred: Dissonance ✅
-17. Gold: Consonance | Pred: Consonance ✅
-18. Gold: Neither | Pred: Neither ✅
+import json
+import pandas as pd
+from sklearn.metrics import accuracy_score, classification_report
+import re
+
+# =============================================================================
+# PROMPT TEMPLATES
+# =============================================================================
+
+def get_prompts():
+    """Define prompt templates"""
+    return {
+        "main": """You are an annotator for an NLP task that tries to detect cognitive dissonance from social media. Your job is to annotate consonance and dissonance from Twitter posts. The task conceptualizes consonance and dissonance as a form of discourse relation between two phrases or discourse units.
+
+To annotate, you are given:
+1. A Twitter post for context
+2. Two discourse units (phrases) extracted from that post
+3. You must determine the relationship between these two discourse units
+
+Follow these steps in order:
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+- If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+- If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+- If YES → Label is CONSONANCE
+
+If none of the above apply → Label is NEITHER
+
+**Post:** "{message}"
+**Discourse Unit 1:** "{du1}"
+**Discourse Unit 2:** "{du2}"
+
+Answer each step with YES or NO, then provide your final label.
+
+Your output should look like the following dictionary, without any extra text or details:
+{{"steps": ["YES", "NO", "YES"], "label": "CONSONANCE"}}""",
+
+        "cot": """You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Post:** "{message}"
+**Discourse Unit 1:** "{du1}"
+**Discourse Unit 2:** "{du2}"
+
+Think through each step carefully, then output:
+{{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}}""",
+
+        "simple": """You are an annotator detecting cognitive dissonance from social media posts.
+
+**Task:** Determine the relationship between two discourse units.
+
+**Post:** "{message}"
+**Unit 1:** "{du1}"
+**Unit 2:** "{du2}"
+
+**Rules:**
+- DISSONANCE: Units contradict each other
+- CONSONANCE: Units support/agree with each other  
+- NEITHER: Units are unrelated or unclear
+
+Output format:
+{{"label": "YOUR_ANSWER"}}"""
+    }
+
+# =============================================================================
+# DATA LOADING
+# =============================================================================
+
+def load_data():
+    """Load the dissonance dataset"""
+    print("Loading data...")
+    
+    # Try to find dataset files
+    files = ['data/train_big.json', 'train_big.json', 'data/dev.json', 'dev.json']
+    
+    for filepath in files:
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            print(f"Loaded {len(data)} examples from {filepath}")
+            return data
+        except FileNotFoundError:
+            continue
+    
+    print("No dataset files found!")
+    print("Make sure you have the dissonance dataset in your directory")
+    return None
+
+def create_test_sample(data, n=10):
+    """Create a balanced test sample"""
+    if not data:
+        return None
+    
+    # Group by label
+    groups = {'D': [], 'C': [], 'N': []}
+    for example in data:
+        label = example['label']
+        if label in groups:
+            groups[label].append(example)
+    
+    # Take samples from each group
+    sample = []
+    per_group = n // 3
+    
+    for label, examples in groups.items():
+        sample.extend(examples[:per_group])
+    
+    print(f"Created test sample with {len(sample)} examples")
+    return sample
+
+# =============================================================================
+# RESPONSE PARSING
+# =============================================================================
+
+def parse_response(response):
+    """Extract classification from JSON-formatted LLM response"""
+    response = response.strip()
+    
+    # Try to parse JSON response
+    try:
+        import json as json_lib
+        # Handle cases where response might have extra text
+        if '{' in response and '}' in response:
+            start = response.find('{')
+            end = response.rfind('}') + 1
+            json_str = response[start:end]
+            parsed = json_lib.loads(json_str)
+            
+            # Extract label
+            label = parsed.get('label', '').upper()
+            if label in ['DISSONANCE', 'CONSONANCE', 'NEITHER']:
+                # Convert to single letter for consistency
+                label_map = {'DISSONANCE': 'D', 'CONSONANCE': 'C', 'NEITHER': 'N'}
+                return label_map[label], parsed.get('steps', [])
+    except:
+        pass
+    
+    # Fallback parsing if JSON fails
+    response_lower = response.lower()
+    if 'dissonance' in response_lower:
+        return 'D', []
+    elif 'consonance' in response_lower:
+        return 'C', []
+    elif 'neither' in response_lower:
+        return 'N', []
+    
+    return 'N', []  # Default to Neither
+
+# =============================================================================
+# TESTING FUNCTIONS
+# =============================================================================
+
+def test_prompt(prompt_name, test_data):
+    """Test a prompt on the data"""
+    prompts = get_prompts()
+    template = prompts[prompt_name]
+    
+    print(f"\nTesting: {prompt_name}")
+    print("=" * 50)
+    
+    predictions = []
+    true_labels = []
+    step_responses = []
+    
+    for i, example in enumerate(test_data):
+        print(f"\n--- Example {i+1}/{len(test_data)} ---")
+        print(f"True answer: {example['label']}")
+        print(f"Message: {example['message'][:80]}...")
+        print(f"Unit 1: {example['du1']}")
+        print(f"Unit 2: {example['du2']}")
+        
+        # Format prompt
+        prompt = template.format(
+            message=example['message'],
+            du1=example['du1'],
+            du2=example['du2']
+        )
+        
+        print(f"\nCOPY THIS TO YOUR LLM:")
+        print("-" * 30)
+        print(prompt)
+        print("-" * 30)
+        
+        # Get response
+        response = input("\nPaste LLM response: ").strip()
+        if not response:
+            print("Skipping empty response")
+            continue
+        
+        # Parse response
+        pred, steps = parse_response(response)
+        correct = "CORRECT" if pred == example['label'] else "INCORRECT"
+        
+        print(f"Result: {pred} ({correct})")
+        if steps:
+            print(f"Steps: {steps}")
+        
+        # Store results
+        predictions.append(pred)
+        true_labels.append(example['label'])
+        step_responses.append(steps)
+        
+        # Continue?
+        if i < len(test_data) - 1:
+            cont = input("Continue? (Enter/n): ").strip()
+            if cont.lower() == 'n':
+                break
+    
+    return predictions, true_labels, step_responses
+
+def show_results(predictions, true_labels, step_responses, prompt_name):
+    """Display test results and error analysis"""
+    if not predictions:
+        print("No results to show!")
+        return
+    
+    print(f"\nRESULTS: {prompt_name}")
+    print("=" * 50)
+    
+    # Overall accuracy
+    accuracy = accuracy_score(true_labels, predictions)
+    print(f"Accuracy: {accuracy:.1%}")
+    
+    # Individual results with error analysis
+    label_names = {'D': 'Dissonance', 'C': 'Consonance', 'N': 'Neither'}
+    print(f"\nIndividual Results:")
+    errors = []
+    
+    for i, (true, pred, steps) in enumerate(zip(true_labels, predictions, step_responses)):
+        status = "CORRECT" if true == pred else "INCORRECT"
+        print(f"  {i+1}: {label_names[true]} -> {label_names[pred]} ({status})")
+        if steps:
+            print(f"      Steps: {steps}")
+        
+        # Track errors for analysis
+        if true != pred:
+            errors.append({
+                'example': i+1,
+                'true': true,
+                'predicted': pred,
+                'steps': steps
+            })
+    
+    # Error analysis
+    if errors:
+        print(f"\nERROR ANALYSIS:")
+        print(f"Found {len(errors)} errors. Common patterns:")
+        
+        # Count error types
+        error_types = {}
+        for error in errors:
+            error_type = f"{error['true']} -> {error['predicted']}"
+            error_types[error_type] = error_types.get(error_type, 0) + 1
+        
+        for error_type, count in error_types.items():
+            print(f"  {error_type}: {count} cases")
+        
+        print(f"\nSUGGESTIONS:")
+        if 'D -> C' in error_types or 'D -> N' in error_types:
+            print("  - Model struggling to detect contradictions")
+            print("  - Consider adding clearer contradiction examples")
+        if 'C -> N' in error_types:
+            print("  - Model not recognizing support relationships")
+            print("  - Add more obvious agreement examples")
+        if 'N -> D' in error_types or 'N -> C' in error_types:
+            print("  - Model over-interpreting neutral cases")
+            print("  - Emphasize 'unrelated' criteria in prompt")
+    
+    # Detailed breakdown
+    print(f"\nDetailed Classification Report:")
+    try:
+        report = classification_report(
+            true_labels, predictions, 
+            target_names=['Consonance', 'Dissonance', 'Neither'],
+            labels=['C', 'D', 'N'],
+            zero_division=0
+        )
+        print(report)
+    except:
+        print("Could not generate detailed report")
+    
+    return accuracy
+
+# =============================================================================
+# MAIN FUNCTION
+# =============================================================================
+
+def main():
+    """Main testing workflow"""
+    print("🚀 COGNITIVE DISSONANCE PROMPT TESTER")
+    print("=" * 50)
+    
+    # Load data
+    data = load_data()
+    if not data:
+        return
+    
+    # Create test sample
+    n_examples = input("How many examples to test? (5-20 recommended): ").strip()
+    try:
+        n_examples = int(n_examples)
+    except:
+        n_examples = 10
+    
+    test_data = create_test_sample(data, n_examples)
+    if not test_data:
+        return
+    
+    # Choose prompt
+    prompts = get_prompts()
+    print(f"\nAvailable prompts:")
+    for i, name in enumerate(prompts.keys(), 1):
+        print(f"  {i}. {name}")
+    
+    choice = input(f"Choose prompt (1-{len(prompts)}): ").strip()
+    try:
+        prompt_name = list(prompts.keys())[int(choice) - 1]
+    except:
+        prompt_name = 'simple'
+    
+    # Run test
+    print(f"\n🎯 Testing '{prompt_name}' on {len(test_data)} examples")
+    print("Goal: Achieve 80% accuracy")
+    predictions, true_labels, step_responses = test_prompt(prompt_name, test_data)
+    
+    # Show results with error analysis
+    accuracy = show_results(predictions, true_labels, step_responses, prompt_name)
+    
+    # Check if we hit target
+    if accuracy >= 0.8:
+        print(f"\n🎉 SUCCESS! Achieved {accuracy:.1%} accuracy (target: 80%)")
+    else:
+        print(f"\n📊 Current: {accuracy:.1%} accuracy (target: 80%)")
+        print("💡 Use error analysis above to improve the prompt")
+    
+    # Test another?
+    again = input(f"\nTest another prompt? (y/n): ").strip().lower()
+    if again == 'y':
+        main()
+
+if __name__ == "__main__":
+    main()
