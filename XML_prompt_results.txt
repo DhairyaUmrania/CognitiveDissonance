@@ -1,0 +1,57 @@
+RESULTS: cot
+==================================================
+Accuracy: 77.8%
+
+Individual Results:
+  1: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  2: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  3: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  4: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  5: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  6: Dissonance -> Dissonance (CORRECT)
+      Steps: ['YES', 'YES', 'N/A']
+  7: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  8: Consonance -> Consonance (CORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  9: Consonance -> Neither (INCORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  10: Consonance -> Consonance (CORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  11: Consonance -> Consonance (CORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  12: Consonance -> Consonance (CORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  13: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  14: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  15: Neither -> Consonance (INCORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  16: Neither -> Consonance (INCORRECT)
+      Steps: ['YES', 'NO', 'YES']
+  17: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+  18: Neither -> Neither (CORRECT)
+      Steps: ['NO', 'N/A', 'N/A']
+
+ERROR ANALYSIS:
+Found 4 errors. Common patterns:
+  C -> N: 2 cases
+  N -> C: 2 cases
+
+Detailed Classification Report:
+              precision    recall  f1-score   support
+
+  Consonance       0.67      0.67      0.67         6
+  Dissonance       1.00      1.00      1.00         6
+     Neither       0.67      0.67      0.67         6
+
+    accuracy                           0.78        18
+   macro avg       0.78      0.78      0.78        18
+weighted avg       0.78      0.78      0.78        18

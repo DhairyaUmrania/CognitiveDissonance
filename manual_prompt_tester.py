@@ -18,37 +18,6 @@ import random
 def get_prompts():
     """Define prompt templates"""
     return {
-        "main": """You are an annotator for an NLP task that tries to detect cognitive dissonance from social media. Your job is to annotate consonance and dissonance from Twitter posts. The task conceptualizes consonance and dissonance as a form of discourse relation between two phrases or discourse units.
-
-To annotate, you are given:
-1. A Twitter post for context
-2. Two discourse units (phrases) extracted from that post
-3. You must determine the relationship between these two discourse units
-
-Follow these steps in order:
-
-Step 1: Is the parsing and segmentation adequate to judge the relationship?
-- If NO → Label is NEITHER
-
-Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
-- If YES → Label is DISSONANCE
-
-Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
-- If YES → Label is CONSONANCE
-
-If none of the above apply → Label is NEITHER
-
-{examples}
-
-**Post:** "{message}"
-**Discourse Unit 1:** "{du1}"
-**Discourse Unit 2:** "{du2}"
-
-Answer each step with YES or NO, then provide your final label.
-
-Your output should look like the following dictionary, without any extra text or details:
-{{"steps": ["YES", "NO", "YES"], "label": "CONSONANCE"}}""",
-
         "cot": """You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
 
 Given:
@@ -68,30 +37,20 @@ If none apply → Label is NEITHER
 
 {examples}
 
+Think through each step carefully, then output:
+<response>
+<steps>
+<step1>answer1</step1>
+<step2>answer2</step2>
+<step3>answer3</step3>
+</steps>
+<label>FINAL_LABEL</label>
+</response>
+
 **Post:** "{message}"
 **Discourse Unit 1:** "{du1}"
 **Discourse Unit 2:** "{du2}"
-
-Think through each step carefully, then output:
-{{"steps": ["answer1", "answer2", "answer3"], "label": "FINAL_LABEL"}}""",
-
-        "simple": """You are an annotator detecting cognitive dissonance from social media posts.
-
-**Task:** Determine the relationship between two discourse units.
-
-**Rules:**
-- DISSONANCE: Units contradict each other
-- CONSONANCE: Units support/agree with each other  
-- NEITHER: Units are unrelated or unclear
-
-{examples}
-
-**Post:** "{message}"
-**Unit 1:** "{du1}"
-**Unit 2:** "{du2}"
-
-Output format:
-{{"label": "YOUR_ANSWER"}}"""
+"""
     }
 
 # =============================================================================
@@ -117,13 +76,19 @@ def format_example(example, show_reasoning=False):
 **Discourse Unit 1:** "{example['du1']}"
 **Discourse Unit 2:** "{example['du2']}"
 **Analysis:** {reasoning}
-**Answer:** {{"label": "{label_name}"}}"""
+**Answer:** 
+<response>
+<label>{label_name}</label>
+</response>"""
     else:
         return f"""**Example:**
 **Post:** "{example['message']}"
 **Discourse Unit 1:** "{example['du1']}"
 **Discourse Unit 2:** "{example['du2']}"
-**Answer:** {{"label": "{label_name}"}}"""
+**Answer:** 
+<response>
+<label>{label_name}</label>
+</response>"""
 
 def select_examples(data, n_examples=3, balanced=True):
     """Select examples for few-shot prompting"""
@@ -239,29 +204,60 @@ def create_test_sample(data, n=10, exclude_examples=None):
 # =============================================================================
 
 def parse_response(response):
-    """Extract classification from JSON-formatted LLM response"""
+    """Extract classification from XML-formatted LLM response"""
     response = response.strip()
     
-    # Try to parse JSON response
+    # Try to parse XML response
+    try:
+        import xml.etree.ElementTree as ET
+        
+        # Handle cases where response might have extra text
+        if '<response>' in response and '</response>' in response:
+            start = response.find('<response>')
+            end = response.find('</response>') + 11
+            xml_str = response[start:end]
+            
+            # Parse XML
+            root = ET.fromstring(xml_str)
+            
+            # Extract label
+            label_elem = root.find('label')
+            if label_elem is not None:
+                label = label_elem.text.strip().upper()
+                if label in ['DISSONANCE', 'CONSONANCE', 'NEITHER']:
+                    # Convert to single letter for consistency
+                    label_map = {'DISSONANCE': 'D', 'CONSONANCE': 'C', 'NEITHER': 'N'}
+                    
+                    # Extract steps if present
+                    steps = []
+                    steps_elem = root.find('steps')
+                    if steps_elem is not None:
+                        for i in range(1, 4):  # step1, step2, step3
+                            step_elem = steps_elem.find(f'step{i}')
+                            if step_elem is not None:
+                                steps.append(step_elem.text.strip())
+                    
+                    return label_map[label], steps
+    except Exception as e:
+        print(f"XML parsing error: {e}")
+    
+    # Fallback: try to parse as JSON for backward compatibility
     try:
         import json as json_lib
-        # Handle cases where response might have extra text
         if '{' in response and '}' in response:
             start = response.find('{')
             end = response.rfind('}') + 1
             json_str = response[start:end]
             parsed = json_lib.loads(json_str)
             
-            # Extract label
             label = parsed.get('label', '').upper()
             if label in ['DISSONANCE', 'CONSONANCE', 'NEITHER']:
-                # Convert to single letter for consistency
                 label_map = {'DISSONANCE': 'D', 'CONSONANCE': 'C', 'NEITHER': 'N'}
                 return label_map[label], parsed.get('steps', [])
     except:
         pass
     
-    # Fallback parsing if JSON fails
+    # Fallback parsing if both XML and JSON fail
     response_lower = response.lower()
     if 'dissonance' in response_lower:
         return 'D', []
@@ -451,17 +447,10 @@ def main():
     if not test_data:
         return
     
-    # Choose prompt
+    # Choose prompt (automatically use cot since it's the only one)
     prompts = get_prompts()
-    print(f"\nAvailable prompts:")
-    for i, name in enumerate(prompts.keys(), 1):
-        print(f"  {i}. {name}")
-    
-    choice = input(f"Choose prompt (1-{len(prompts)}): ").strip()
-    try:
-        prompt_name = list(prompts.keys())[int(choice) - 1]
-    except:
-        prompt_name = 'simple'
+    prompt_name = 'cot'
+    print(f"\nUsing chain-of-thought prompt")
     
     # Run test
     print(f"\nTesting '{prompt_name}' on {len(test_data)} examples")
