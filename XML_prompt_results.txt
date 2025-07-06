@@ -1,3 +1,105 @@
+Example Prompt:
+
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Examples:**
+
+**Example:**
+**Post:** " < I’m too nice y’ all lol > but I think that’s something < that will never change about me > 😩"
+**Discourse Unit 1:** " I’m too nice y’ all lol "
+**Discourse Unit 2:** " that will never change about me "
+**Analysis:** The two units present contradictory beliefs.
+**Answer:**
+<response>
+<label>DISSONANCE</label>
+</response>
+
+**Example:**
+**Post:** " < my mother told me to put the AC on > < and I replied’   Why Tho’ > "
+**Discourse Unit 1:** " my mother told me to put the AC on "
+**Discourse Unit 2:** " and I replied’   Why Tho’ "
+**Analysis:** The two units present contradictory beliefs.
+**Answer:**
+<response>
+<label>DISSONANCE</label>
+</response>
+
+**Example:**
+**Post:** " He may just be too dam clingy if ... You tell him <’   we need a break’ > and he still texting you 😳 ... < Pull your skirt up dude ! ! > "
+**Discourse Unit 1:** "’   we need a break’ "
+**Discourse Unit 2:** " Pull your skirt up dude ! ! "
+**Analysis:** The two units support and agree with each other.
+**Answer:**
+<response>
+<label>CONSONANCE</label>
+</response>
+
+**Example:**
+**Post:** " < Nice [ USER ] on the [ USER ] cold open > < 😎 > "
+**Discourse Unit 1:** " Nice [ USER ] on the [ USER ] cold open "
+**Discourse Unit 2:** " 😎 "
+**Analysis:** The two units support and agree with each other.
+**Answer:**
+<response>
+<label>CONSONANCE</label>
+</response>
+
+**Example:**
+**Post:** " this is why I ca n’t relate to all the memes < that are like I’m gon na be huge after quarantine ate ALL my food > .2 seconds after I bought it < meanwhile I’m like ....... > did I eat today lmao ?  "
+**Discourse Unit 1:** " that are like I’m gon na be huge after quarantine ate ALL my food "
+**Discourse Unit 2:** " meanwhile I’m like ....... "
+**Analysis:** The units are not clearly related or contradictory.
+**Answer:**
+<response>
+<label>NEITHER</label>
+</response>
+
+**Example:**
+**Post:** " I want to start 3 < sentences tomorrow with’ > anthropologically speaking .’ < Damn > #bones reruns . Would love to sound smart for once !  "
+**Discourse Unit 1:** " sentences tomorrow with’ "
+**Discourse Unit 2:** " Damn "
+**Analysis:** The units are not clearly related or contradictory.
+**Answer:**
+<response>
+<label>NEITHER</label>
+</response>
+
+**Now annotate the following:**
+
+
+Think through each step carefully, then output:
+<response>
+<steps>
+<step1>answer1</step1>
+<step2>answer2</step2>
+<step3>answer3</step3>
+</steps>
+<label>FINAL_LABEL</label>
+</response>
+
+**Post:** " < I hoped to spend the holiday break > crafting my new job blog post , < but alas it’s not in the cards . > nnThe search for a tech marketing / content marketing role continues ...  "
+**Discourse Unit 1:** " I hoped to spend the holiday break "
+**Discourse Unit 2:** " but alas it’s not in the cards . "
+
+
+Ran this prompt for 18 examples
+
+
 RESULTS: cot
 ==================================================
 Accuracy: 77.8%
