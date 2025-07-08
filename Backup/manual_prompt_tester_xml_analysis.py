@@ -65,13 +65,13 @@ def format_example(example, show_reasoning=False):
     label_name = label_map.get(example['label'], 'NEITHER')
     
     if show_reasoning:
-        # Add step-by-step reasoning for chain-of-thought prompts
-        step_map = {
-            'D': ['YES', 'YES', 'NO'],  # Adequate parsing, contradictory, not agreeing
-            'C': ['YES', 'NO', 'YES'],  # Adequate parsing, not contradictory, agreeing
-            'N': ['NO', 'NO', 'NO']     # Not adequate parsing or unclear relationship
+        # Add reasoning for chain-of-thought prompts
+        reasoning_map = {
+            'D': 'The two units present contradictory beliefs.',
+            'C': 'The two units support and agree with each other.',
+            'N': 'The units are not clearly related or contradictory.'
         }
-        steps = step_map.get(example['label'], ['NO', 'NO', 'NO'])
+        reasoning = reasoning_map.get(example['label'], 'The relationship is unclear.')
         
         return f"""<post>{example['message']}</post>
 <discourse>
@@ -79,11 +79,7 @@ def format_example(example, show_reasoning=False):
 <unit2>{example['du2']}</unit2>
 </discourse>
 <response>
-<steps>
-<step1>{steps[0]}</step1>
-<step2>{steps[1]}</step2>
-<step3>{steps[2]}</step3>
-</steps>
+<analysis>{reasoning}</analysis>
 <label>{label_name}</label>
 </response>"""
     else:
