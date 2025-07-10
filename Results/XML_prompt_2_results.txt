@@ -1,3 +1,128 @@
+Sample Prompt:
+
+You are an annotator for an NLP task that detects cognitive dissonance from social media. Your job is to annotate the relationship between two discourse units from Twitter posts.
+
+Given:
+- A Twitter post (context)
+- Two discourse units (phrases) from that post
+
+Step 1: Is the parsing and segmentation adequate to judge the relationship?
+If NO → Label is NEITHER
+
+Step 2: Are the two beliefs logically contradictory (directly or indirectly)?
+If YES → Label is DISSONANCE
+
+Step 3: Are the two beliefs in agreement (supporting, repeating, clarifying, agreeing)?
+If YES → Label is CONSONANCE
+
+If none apply → Label is NEITHER
+
+**Examples:**
+
+<post> < I’m too nice y’ all lol > but I think that’s something < that will never change about me > 😩</post>
+<discourse>
+<unit1> I’m too nice y’ all lol </unit1>
+<unit2> that will never change about me </unit2>
+</discourse>
+<response>
+<steps>
+<step1>YES</step1>
+<step2>YES</step2>
+<step3>NO</step3>
+</steps>
+<label>DISSONANCE</label>
+</response>
+
+<post> < my mother told me to put the AC on > < and I replied’   Why Tho’ > </post>
+<discourse>
+<unit1> my mother told me to put the AC on </unit1>
+<unit2> and I replied’   Why Tho’ </unit2>
+</discourse>
+<response>
+<steps>
+<step1>YES</step1>
+<step2>YES</step2>
+<step3>NO</step3>
+</steps>
+<label>DISSONANCE</label>
+</response>
+
+<post> He may just be too dam clingy if ... You tell him <’   we need a break’ > and he still texting you 😳 ... < Pull your skirt up dude ! ! > </post>
+<discourse>
+<unit1>’   we need a break’ </unit1>
+<unit2> Pull your skirt up dude ! ! </unit2>
+</discourse>
+<response>
+<steps>
+<step1>YES</step1>
+<step2>NO</step2>
+<step3>YES</step3>
+</steps>
+<label>CONSONANCE</label>
+</response>
+
+<post> < Nice [ USER ] on the [ USER ] cold open > < 😎 > </post>
+<discourse>
+<unit1> Nice [ USER ] on the [ USER ] cold open </unit1>
+<unit2> 😎 </unit2>
+</discourse>
+<response>
+<steps>
+<step1>YES</step1>
+<step2>NO</step2>
+<step3>YES</step3>
+</steps>
+<label>CONSONANCE</label>
+</response>
+
+<post> this is why I ca n’t relate to all the memes < that are like I’m gon na be huge after quarantine ate ALL my food > .2 seconds after I bought it < meanwhile I’m like ....... > did I eat today lmao ?  </post>
+<discourse>
+<unit1> that are like I’m gon na be huge after quarantine ate ALL my food </unit1>
+<unit2> meanwhile I’m like ....... </unit2>
+</discourse>
+<response>
+<steps>
+<step1>NO</step1>
+<step2>NO</step2>
+<step3>NO</step3>
+</steps>
+<label>NEITHER</label>
+</response>
+
+<post> I want to start 3 < sentences tomorrow with’ > anthropologically speaking .’ < Damn > #bones reruns . Would love to sound smart for once !  </post>    
+<discourse>
+<unit1> sentences tomorrow with’ </unit1>
+<unit2> Damn </unit2>
+</discourse>
+<response>
+<steps>
+<step1>NO</step1>
+<step2>NO</step2>
+<step3>NO</step3>
+</steps>
+<label>NEITHER</label>
+</response>
+
+**Now annotate the following:**
+
+
+
+Think through each step carefully, then output:
+<response>
+<steps>
+<step1>answer1</step1>
+<step2>answer2</step2>
+<step3>answer3</step3>
+</steps>
+<label>FINAL_LABEL</label>
+</response>
+
+<post> < That is the best > that can be said for an Elected official’   She enjoys softball’   ? < That is sad . > newline   Jack Hotchkiss Oath Keeper   newline   [USER]  </post>
+<discourse>
+<unit1> That is the best </unit1>
+<unit2> That is sad . </unit2>
+</discourse>
+
 RESULTS: cot
 ==================================================
 Accuracy: 77.8%
